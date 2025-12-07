@@ -1,0 +1,35 @@
+sudo apt-get install git-all
+git config --global credential.helper store
+
+--get pip for python
+sudo apt update
+sudo apt install python3-venv python3-pip
+
+--install python modules
+python -m pip install smbus
+python -m pip install smbus2
+
+--activate i2c in the rasPi
+1. in /etc/modprobe.d/raspi-blacklist.conf  uncomment:
+# blacklist spi-bcm2708
+# blacklist i2c-bcm2708
+2. in /etc/modules add:
+i2c-dev
+
+run sudo raspi-config
+and ativate i2c under "Interfacing Options"
+
+--install i2ctools
+1.  sudo apt-get install i2c-tools
+
+OR
+
+2.
+sudo apt update
+sudo apt install snapd
+sudo snap install snapd
+sudo snap install i2ctools
+
+
+
+
