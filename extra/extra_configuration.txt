@@ -1,3 +1,8 @@
+/*
+The raspberryPi Zero has to run the Raspberry Pi OS Lite system
+*/
+
+--install git
 sudo apt-get install git-all
 git config --global credential.helper store
 
