@@ -1,45 +1,42 @@
 
-int IA1 = 9;
-int IA2 = 5;
+int DC_IA1 = 9;
+int DC_IA2 = 5;
 
 
 bool dir = true;
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(IA1, OUTPUT);
-  pinMode(IA2, OUTPUT);
+  pinMode(DC_IA1, OUTPUT);
+  pinMode(DC_IA2, OUTPUT);
 }
 
 void loop() {
-     Forward(200);//Motor MA1 forward; PWM speed control
+     Forward_slow_decay(200);//Motor MA1 forward; PWM speed control
      delay(1000);
      /*
-     digitalWrite(IA1, HIGH);
-     digitalWrite(IA2, HIGH);
+     digitalWrite(DC_IA1, HIGH);
+     digitalWrite(DC_IA2, HIGH);
      delay(1000);
      */
-     Backward(200);//Motor MA2 backward; PWM speed control
+     Backward_slow_decay(200);//Motor MA2 backward; PWM speed control
      delay(1000);
      /*
-     digitalWrite(IA1, HIGH);
-     digitalWrite(IA2, HIGH);
+     digitalWrite(DC_IA1, HIGH);
+     digitalWrite(DC_IA2, HIGH);
      delay(1000);
      */
 }
 
-
-
-
 void Forward_slow_decay(int Speed1)
 {
-     digitalWrite(IA1,HIGH);
-     analogWrite(IA2,Speed1);
+     digitalWrite(DC_IA1,HIGH);
+     analogWrite(DC_IA2,Speed1);
 }
 
 void Backward_slow_decay(int Speed1)
 {
-     analogWrite(IA1,Speed1);
-     digitalWrite(IA2,HIGH);
+     analogWrite(DC_IA1,Speed1);
+     digitalWrite(DC_IA2,HIGH);
 }
 
