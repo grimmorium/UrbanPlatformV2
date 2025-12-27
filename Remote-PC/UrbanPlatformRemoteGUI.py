@@ -83,7 +83,7 @@ def on_press(key):
         if key.char == '9':
             fun = "009"
         
-        sendUDP(keyP, fun)
+        sendUDP(keyP, fun, 0)
         
     except AttributeError:
         print('special key {0} pressed'.format(key))
@@ -96,11 +96,11 @@ def on_release(key):
     #print('{0} released'.format(key))
     #sendUDP()
 
-def sendUDP(_keyP, _fun):
+def sendUDP(_keyP, _fun, _value):
     if enableUDP == True:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         client_socket.settimeout(1.0)
-        message = str.encode(mode + height + _keyP + _fun)
+        message = str.encode(mode + height + _keyP + _fun + str(_value))
         addr = (ipAddr, ipPort)
         start = time.time()
         client_socket.sendto(message, addr)
@@ -282,7 +282,7 @@ while True:
     #print(event)
     #print(values)
     
-    sendUDP(keyPr, fun)
+    sendUDP(keyPr, fun, int(values["freeSteps"]))
     
     # if user closes window or clicks cancel
     if event == sg.WIN_CLOSED:
