@@ -2,6 +2,7 @@ import FreeSimpleGUI as sg
 from pynput import keyboard
 import socket
 import time
+import os
 
 mode = "R" #tryb default Ride
 height = "M" #wysokosc default Middle
@@ -116,7 +117,7 @@ listener = keyboard.Listener(on_press=on_press, on_release=on_release)
 listener.start()
 
 # All the stuff inside your window.
-layout = [  [sg.Text("IP:")],[sg.InputText(key='IPit', default_text=ipAddr)], [sg.Text("Port:")], [sg.InputText(key='PORTit', default_text=ipPort)],
+layout_steering = [  [sg.Text("IP:")],[sg.InputText(key='IPit', default_text=ipAddr)], [sg.Text("Port:")], [sg.InputText(key='PORTit', default_text=ipPort)],
             [sg.Button('Connect')],
             [sg.Text("   ")],
             [sg.Text("Mode:  "), sg.Button('Walk'), sg.Button('Ride')],
@@ -127,9 +128,41 @@ layout = [  [sg.Text("IP:")],[sg.InputText(key='IPit', default_text=ipAddr)], [s
             [sg.Button("   /   ", key='7'),sg.Button("   \/   ", key='8'),sg.Button("   \   ", key='9'), sg.Text("   "), sg.Button("007"), sg.Button("008"), sg.Button("009")]
          ]
 
-sg.set_options(scaling=3)
+textImgPt0  = "   __        __";
+textImgPt1  =    "  \ ____ /  ";
+textImgPt2  =    "   |    |   ";
+textImgPt2a = "      |    |   ";
+textImgPt3  =    "___|    |___";
+textImgPt4  =    "   |    |   ";
+textImgPt4a = "      |    |   ";
+textImgPt5  =    "   |____|   ";
+textImgPt6  =    "__/      \__";
 
-window = sg.Window('Urban Platform', layout)
+fnt = ("Courier New", 20)
+
+layout_advanced = [ [sg.Input(s=15, key = 'freeSteps', default_text = '100')],
+                    [sg.Text(textImgPt0, font = fnt)],
+                    [sg.Button('/\\', key = 'FL1'),sg.Button('U', key = 'FL2'), sg.Text(textImgPt1, font = fnt), sg.Button('/\\', key = 'FR1'),sg.Button('U', key = 'FR2')],
+                    [sg.Button('\\/', key = 'FL3'),sg.Button('D', key = 'FL4'), sg.Text(textImgPt2, font = fnt), sg.Button('\\/', key = 'FR3'),sg.Button('D', key = 'FR4')],
+                    [sg.Text(textImgPt2a, font = fnt)],
+                    [sg.Button('/\\', key = 'ML1'),sg.Button('U', key = 'ML2'), sg.Text(textImgPt3, font = fnt), sg.Button('/\\', key = 'MR1'),sg.Button('U', key = 'MR2')],
+                    [sg.Button('\\/', key = 'ML3'),sg.Button('D', key = 'ML4'), sg.Text(textImgPt4, font = fnt), sg.Button('\\/', key = 'MR3'),sg.Button('D', key = 'MR4')],
+                    [sg.Text(textImgPt4a, font = fnt)],
+                    [sg.Button('/\\', key = 'BL1'),sg.Button('U', key = 'BL2'), sg.Text(textImgPt5, font = fnt), sg.Button('/\\', key = 'BR1'),sg.Button('U', key = 'BR2')],
+                    [sg.Button('\\/', key = 'BL3'),sg.Button('D', key = 'BL4'), sg.Text(textImgPt6, font = fnt), sg.Button('\\/', key = 'BR3'),sg.Button('D', key = 'BR4')]
+                ]
+
+layout_main = [
+                [
+                    sg.TabGroup(
+                                [[sg.Tab('Steering', layout_steering), sg.Tab('Advanced', layout_advanced)]]
+                                )
+                ]
+            ]
+
+sg.set_options(scaling=2.5)
+
+window = sg.Window('Urban Platform', layout_main)
 
 
 # Event Loop to process "events" and get the "values" of the inputs
@@ -194,6 +227,57 @@ while True:
         fun = '008'
     if event == '009':
         fun = '009'
+    #tab: advanced
+    if event == 'FL1':
+        fun = '911'
+    if event == 'FL2':
+        fun = '912'
+    if event == 'FL3':
+        fun = '913'
+    if event == 'FL4':
+        fun = '914'
+    if event == 'FR1':
+        fun = '921'
+    if event == 'FR2':
+        fun = '922'
+    if event == 'FR3':
+        fun = '923'
+    if event == 'FR4':
+        fun = '924'
+        
+    if event == 'ML1':
+        fun = '931'
+    if event == 'ML2':
+        fun = '932'
+    if event == 'ML3':
+        fun = '933'
+    if event == 'ML4':
+        fun = '934'
+    if event == 'MR1':
+        fun = '941'
+    if event == 'MR2':
+        fun = '942'
+    if event == 'MR3':
+        fun = '943'
+    if event == 'MR4':
+        fun = '944'
+        
+    if event == 'BL1':
+        fun = '951'
+    if event == 'BL2':
+        fun = '952'
+    if event == 'BL3':
+        fun = '953'
+    if event == 'BL4':
+        fun = '954'
+    if event == 'BR1':
+        fun = '961'
+    if event == 'BR2':
+        fun = '962'
+    if event == 'BR3':
+        fun = '963'
+    if event == 'BR4':
+        fun = '964'
 
     #print(event)
     #print(values)
